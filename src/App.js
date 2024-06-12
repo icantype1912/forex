@@ -73,7 +73,9 @@ const App = ()=>{
   </div>
 }
 
-export default App;
+
 
 const from = {short:"GBP",long:"British Pounds"}
 const to = {short:"EUR",long:"Euros"}
+
+  export default App;
