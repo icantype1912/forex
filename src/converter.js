@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 
 const Converter = (props) =>{ 
-  const {handleAmount} = props;
+  const {handleAmount,handleFrom,handleTo,from,to} = props;
   const [curList,setCurList] = useState([])
   const [fullCurList,setFullCurList] = useState([])
   useEffect(()=>{
@@ -24,10 +24,10 @@ const Converter = (props) =>{
     </div>
     <div className="from">
         <h4>From</h4>
-      <select onSubmit={(e) => {e.preventDefault()}}>
+      <select value = {from} onSubmit={(e) => {e.preventDefault()}} onChange={handleFrom}>
         {curList.map((cur)=>{
           return <>
-            <option value = {cur}>{cur} - {fullCurList[cur]}</option>
+            <option value = {cur}>{cur} - {fullCurList[cur]} </option>
           </>
         })}
       </select>
@@ -37,10 +37,10 @@ const Converter = (props) =>{
     </div>
     <div className="to">
       <h4>To</h4>
-        <select onSubmit={(e) => {e.preventDefault()}}>
+        <select value= {to}  onChange={handleTo} onSubmit={(e) => {e.preventDefault()}}>
           {curList.map((cur)=>{
             return <>
-              <option value = {cur}>{cur} - {fullCurList[cur]}</option>
+              <option value = {cur}>{cur} - {fullCurList[cur]} </option>
             </>
           })}
         </select>
