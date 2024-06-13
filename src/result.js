@@ -15,9 +15,9 @@ const Result = (props) =>
             })
             },[])
         return <div className="result">
-            <p>{amount} {curList[from]} = </p>
-            <h1>{(converted)} {curList[to]}</h1>
-            <h5>1 {from} = {(converted/amount).toFixed(3)} {to}</h5>
+            {(curList[from] === "Indian Rupee")?<p>{parseFloat(amount).toLocaleString("en-IN")} {curList[from]} = </p>:<p>{parseFloat(amount).toLocaleString()} {curList[from]} = </p>}
+            {(curList[to] === "Indian Rupee")?<h1>{(converted).toLocaleString("en-IN")} {curList[to]}</h1>:<h1>{(converted).toLocaleString()} {curList[to]}</h1>}
+            <h5>1 {from} = {((converted/amount).toFixed(3))} {to}</h5>
             <h5>1 {to} = {(1/(converted/amount)).toFixed(3)} {from}</h5> 
     </div>
     }

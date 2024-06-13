@@ -9,26 +9,51 @@ import Submit from "./submit";
 const App = ()=>{
 
   //states
+  const [APIDone,setAPIDone] = useState(false)
   const [start,setStart]  = useState(false);
-  const [toggle,setToggle] = useState(0);
   const [amount,setAmount] = useState(0);
   const [finalAmount,setFinalAmount] = useState(0)
+  const [finalFinalAmount,setFinalFinalAmount] = useState(0)
   const [from,setFrom] = useState("USD");
   const [finalFrom,setFinalFrom] = useState("USD")
+  const [finalFinalFrom,setFinalFinalFrom]  = useState("USD")
   const [to,setTo] = useState("INR");
   const [finalTo,setFinalTo] = useState("INR");
-  const [converted,setConverted] = useState(null);
+  const [finalFinalTo,setFinalFinalTo]  = useState("USD")
+  const [converted,setConverted] = useState(0);
+  const [loading,setLoading] = useState(false);
 
 
   useEffect(()=>{
     if (start)
       {
+        if(to===from)
+          {
+            alert("Can't convert to same currency!");
+            return
+          }
+          if((amount <= 0) || isNaN(amount))
+          {
+              return
+          }
+        setLoading(true)
         const host = 'api.frankfurter.app'
         fetch(`https://${host}/latest?amount=${finalAmount}&from=${from}&to=${to}`)
         .then(resp => resp.json())
-        .then((data)=>{setConverted(data.rates[to])})
+        .then((data)=>{
+          setFinalFinalAmount(finalAmount)
+          setConverted(data.rates[to])
+          setLoading(false)
+          setFinalFinalFrom(finalFrom)
+          setFinalFinalTo(finalTo)
+          setStart(true);
+          setFinalAmount(amount);
+          setFinalTo(to);
+          setFinalFrom(from);
+          setAPIDone(true);
+        })
       }
-    },[toggle])
+    },[finalAmount,finalFrom,finalTo,from,start,to,amount])
     
   const Click = ()=>
   {
@@ -43,11 +68,9 @@ const App = ()=>{
           return
       }
     setStart(true);
-    setToggle((prev) => prev+1)
     setFinalAmount(amount);
     setFinalTo(to);
     setFinalFrom(from);
-    
   }
 
   const swap = ()=>
@@ -75,8 +98,8 @@ const App = ()=>{
     <h2 className="header">Crimson Currency Converter</h2>
     <div className="table">
       <Converter handleAmount = {handleAmount} handleFrom = {handleFrom} handleTo = {handleTo} from = {from} to = {to} swap = {swap}/>
-      {start?<Result converted = {converted} amount = {finalAmount} from = {finalFrom} to = {finalTo}/>:<></>} 
-      <Submit Click = {Click}/>
+      {APIDone?<Result converted = {converted} amount = {finalFinalAmount} from = {finalFinalFrom} to = {finalFinalTo}/>:<></>} 
+      <Submit loading = {loading} Click = {Click}/>
     </div>
   </div>
 }
