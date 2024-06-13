@@ -1,15 +1,21 @@
 import "../src/App.css"
-import React from "react"
+import React, { useState } from "react"
 import { useEffect } from "react";
 
 
 const Converter = (props) =>{ 
   const {handleAmount} = props;
-  const curList = ["USD","EUR","GBP"]
+  const [curList,setCurList] = useState([])
+  const [fullCurList,setFullCurList] = useState([])
   useEffect(()=>{
     const host = 'api.frankfurter.app'
     fetch(`https://${host}/currencies`)
+    .then(resp => resp.json())
+    .then(data => {
+      setFullCurList(data)
+      setCurList(Object.keys(data))
     })
+    },[])
   
   return <div className="converter">
     <div className="amount">
@@ -21,7 +27,7 @@ const Converter = (props) =>{
       <select onSubmit={(e) => {e.preventDefault()}}>
         {curList.map((cur)=>{
           return <>
-            <option value = {cur}>{cur}</option>
+            <option value = {cur}>{cur} - {fullCurList[cur]}</option>
           </>
         })}
       </select>
@@ -34,7 +40,7 @@ const Converter = (props) =>{
         <select onSubmit={(e) => {e.preventDefault()}}>
           {curList.map((cur)=>{
             return <>
-              <option value = {cur}>{cur}</option>
+              <option value = {cur}>{cur} - {fullCurList[cur]}</option>
             </>
           })}
         </select>

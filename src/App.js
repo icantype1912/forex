@@ -22,7 +22,7 @@ const App = ()=>{
         const host = 'api.frankfurter.app'
         fetch(`https://${host}/latest?amount=${amount}&from=${from}&to=${to}`)
         .then(resp => resp.json())
-        .then((data)=>{setConverted(data.rates.EUR)})
+        .then((data)=>{setConverted(data.rates[to])})
       }
     },[toggle])
     
