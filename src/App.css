@@ -62,19 +62,22 @@ body{
   margin: 10px;
 }
 
-.from select{
+select{
   width: 200px;
   height: 30px;
+  border-radius: 5px;
 }
 
-.to select{
-  width : 200px;
-  height: 30px;
+option{
+  color: black;
 }
+
+
 
 .amount input{
   width: 200px;
   height: 25px;
+  border-radius: 5px;
 }
 
 .result{

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 
 const Converter = (props) =>{ 
-  const {handleAmount,handleFrom,handleTo,from,to} = props;
+  const {handleAmount,handleFrom,handleTo,from,to,swap} = props;
   const [curList,setCurList] = useState([])
   const [fullCurList,setFullCurList] = useState([])
   useEffect(()=>{
@@ -33,7 +33,7 @@ const Converter = (props) =>{
       </select>
     </div>
     <div className="swap">
-        <button>↔️</button>
+        <button onClick={swap}>↔️</button>
     </div>
     <div className="to">
       <h4>To</h4>

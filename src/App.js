@@ -32,12 +32,30 @@ const App = ()=>{
     
   const Click = ()=>
   {
+    if(to===from)
+      {
+        alert("Can't convert to same currency!");
+        return
+      }
+      if((amount <= 0) || isNaN(amount))
+      {
+          alert("Has to be a valid number greater than 0")
+          return
+      }
     setStart(true);
     setToggle((prev) => prev+1)
     setFinalAmount(amount);
     setFinalTo(to);
     setFinalFrom(from);
+    
   }
+
+  const swap = ()=>
+    {
+      let temp = from;
+      setFrom(to);
+      setTo(temp);
+    }
 
   const handleAmount = (e)=> {
     setAmount(e.target.value);
@@ -56,7 +74,7 @@ const App = ()=>{
   return<div className="main-parent">
     <h2 className="header">Crimson Currency Converter</h2>
     <div className="table">
-      <Converter handleAmount = {handleAmount} handleFrom = {handleFrom} handleTo = {handleTo} from = {from} to = {to}/>
+      <Converter handleAmount = {handleAmount} handleFrom = {handleFrom} handleTo = {handleTo} from = {from} to = {to} swap = {swap}/>
       {start?<Result converted = {converted} amount = {finalAmount} from = {finalFrom} to = {finalTo}/>:<></>} 
       <Submit Click = {Click}/>
     </div>
