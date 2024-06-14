@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 
 const Converter = (props) =>{ 
-  const {handleAmount,handleFrom,handleTo,from,to,swap} = props;
+  const {handleAmount,handleFrom,handleTo,from,to,swap,amount} = props;
   const [curList,setCurList] = useState([])
   const [fullCurList,setFullCurList] = useState([])
   useEffect(()=>{
@@ -20,7 +20,7 @@ const Converter = (props) =>{
   return <div className="converter">
     <div className="amount">
       <h4>Amount</h4>
-        <input type = "text" onSubmit={(e) => {e.preventDefault()}} onChange={handleAmount}/>
+        <input type = "text" value = {amount} onSubmit={(e) => {e.preventDefault()}} onChange={handleAmount}/>
     </div>
     <div className="from">
         <h4>From</h4>

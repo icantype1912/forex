@@ -11,7 +11,7 @@ const App = ()=>{
   //states
   const [APIDone,setAPIDone] = useState(false)
   const [start,setStart]  = useState(false);
-  const [amount,setAmount] = useState(0);
+  const [amount,setAmount] = useState(1);
   const [finalAmount,setFinalAmount] = useState(0)
   const [finalFinalAmount,setFinalFinalAmount] = useState(0)
   const [from,setFrom] = useState("USD");
@@ -81,6 +81,11 @@ const App = ()=>{
     }
 
   const handleAmount = (e)=> {
+    if(isNaN(e.target.value) && e.target.value !== "")
+      {
+        setAmount("")
+        return
+      }
     setAmount(e.target.value);
   }
 
@@ -90,14 +95,13 @@ const App = ()=>{
 
   const handleTo = (e) =>{
     setTo(e.target.value);
-  }
+  }  
 
 
-  
   return<div className="main-parent">
     <h2 className="header">Crimson Currency Converter</h2>
     <div className="table">
-      <Converter handleAmount = {handleAmount} handleFrom = {handleFrom} handleTo = {handleTo} from = {from} to = {to} swap = {swap}/>
+      <Converter handleAmount = {handleAmount} handleFrom = {handleFrom} handleTo = {handleTo} from = {from} to = {to} swap = {swap} amount = {amount}/>
       {APIDone?<Result converted = {converted} amount = {finalFinalAmount} from = {finalFinalFrom} to = {finalFinalTo}/>:<></>} 
       <Submit loading = {loading} Click = {Click}/>
     </div>
