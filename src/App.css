@@ -2,7 +2,7 @@ body{
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(#FF204E,#ff819a);
+  background-image: linear-gradient(#fc1241,#fc124130);
 }
 
 .main-parent{
@@ -69,6 +69,7 @@ select{
   width: 200px;
   height: 30px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 option{
