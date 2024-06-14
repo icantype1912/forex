@@ -7,7 +7,8 @@ import Submit from "./submit";
 import { debounce } from "lodash";
 
 const App = () => {
-  //states
+  const [err,setErr] = useState(false)
+  const [valueErr,setValueErr] = useState(true)
   const [APIDone, setAPIDone] = useState(true);
   const [start, setStart] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -23,14 +24,19 @@ const App = () => {
 
   useEffect(() => {
     if (start) {
-      setAPIDone(false)
+      setErr(false)
       if (currency.to === currency.from) {
-        alert("Can't convert to same currency!");
+        setErr(true)
+        setValueErr(false)
         return;
       }
       if (amount <= 0 || isNaN(amount)) {
+        setAmount("")
+        setErr(true)
+        setValueErr(true)
         return;
       }
+      setAPIDone(false)
       setLoading(true);
       const host = "api.frankfurter.app";
       fetch(
@@ -64,7 +70,7 @@ const App = () => {
 
   const handleAmount = (e) => {
     if (isNaN(e.target.value)) {
-      debouncedSetAmount(0);
+      debouncedSetAmount("");
       return;
     } 
     debouncedSetAmount(e.target.value);
@@ -93,15 +99,19 @@ const App = () => {
           swap={swap}
           amount={amount}
         />
-        {APIDone && start? (
-          <Result
+        {APIDone? <>
+          {start?<div>
+          {!err?<Result
             converted={converted}
             amount={amount}
             from={currency.from}
             to={currency.to}
-          />
-        ) : (
-          <></>
+          />:<div className="result">{valueErr?
+              <h4>Enter a Valid Value</h4>:<h4>Can't convert a currency to itself</h4>}
+            </div>}</div>:<span className="start"></span>} </>
+         : (<div className="result">
+            <span className="bigLoader"></span>
+          </div>
         )}
         <Submit loading={loading} Click={Click} />
       </div>

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const Result = (props) =>
     {
-        const {converted,amount,from,to} = props;
+        const {converted,amount,from,to,} = props;
         const[curList,setCurList] = useState([])
         useEffect(()=>{
             const host = 'api.frankfurter.app'
